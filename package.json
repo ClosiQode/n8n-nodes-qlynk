@@ -1,0 +1,57 @@
+{
+  "name": "n8n-nodes-qlynk",
+  "version": "1.0.0",
+  "description": "n8n node for Qlynk URL shortener - Create, manage and track short links",
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n",
+    "qlynk",
+    "url-shortener",
+    "link-management",
+    "ai-tool"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/ClosiQode/qlink",
+  "author": {
+    "name": "ClosiQode",
+    "email": "contact@qlynk.fr"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ClosiQode/qlink.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && gulp build:icons",
+    "dev": "tsc --watch",
+    "format": "prettier nodes credentials --write",
+    "lint": "eslint nodes credentials package.json",
+    "lintfix": "eslint nodes credentials package.json --fix",
+    "prepublishOnly": "npm run build && npm run lint -c .eslintrc.prepublish.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/QlynkApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/Qlynk/Qlynk.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^18.16.0",
+    "@typescript-eslint/parser": "^7.15.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-n8n-nodes-base": "^1.16.1",
+    "gulp": "^4.0.2",
+    "n8n-workflow": "^1.52.0",
+    "prettier": "^3.3.2",
+    "typescript": "^5.5.3"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
+}

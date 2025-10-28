@@ -1,0 +1,19 @@
+{
+	"node": "n8n-nodes-qlynk.qlynk",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Development", "Productivity", "Marketing & Content"],
+	"resources": {
+		"credentialDocumentation": [
+			{
+				"url": "https://qlynk.fr/docs/api"
+			}
+		],
+		"primaryDocumentation": [
+			{
+				"url": "https://github.com/ClosiQode/n8n-nodes-qlynk"
+			}
+		]
+	},
+	"alias": ["url-shortener", "link-shortener", "short-link", "bitly"]
+}

@@ -1,0 +1,339 @@
+# n8n-nodes-qlynk
+
+![Qlynk Logo](https://qlynk.fr/assets/logo.png)
+
+This is an n8n community node that lets you interact with the [Qlynk](https://qlynk.fr) URL shortener API directly from your n8n workflows.
+
+[n8n](https://n8n.io/) is a fair-code licensed workflow automation platform.
+
+[Qlynk](https://qlynk.fr) is a powerful URL shortener with advanced statistics, deep links, and rich metadata.
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Prerequisites](#prerequisites)
+- [Operations](#operations)
+- [Credentials](#credentials)
+- [Compatibility](#compatibility)
+- [Usage](#usage)
+  - [As a Regular Node](#as-a-regular-node)
+  - [As an AI Tool](#as-an-ai-tool)
+- [Resources](#resources)
+- [Version history](#version-history)
+- [Development](#development)
+- [Publishing to npm](#publishing-to-npm)
+- [License](#license)
+
+## Installation
+
+Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
+
+### Using npm
+
+```bash
+npm install n8n-nodes-qlynk
+```
+
+### Using n8n interface
+
+1. Go to **Settings** > **Community Nodes**
+2. Select **Install**
+3. Enter `n8n-nodes-qlynk` in **Enter npm package name**
+4. Agree to the [risks](https://docs.n8n.io/integrations/community-nodes/risks/) of using community nodes
+5. Select **Install**
+
+After installation, restart n8n for the node to appear in the nodes panel.
+
+## Prerequisites
+
+You need:
+
+1. An active [Qlynk](https://qlynk.fr) account
+2. A Qlynk API key (generate one from your dashboard under Profile > API Keys)
+3. [n8n](https://n8n.io/) installed (version 0.240.0 or later)
+
+## Operations
+
+The Qlynk node supports three main resources:
+
+### URL Resource
+
+Manage short links:
+
+- **Create**: Create a new short link
+  - Required: Original URL
+  - Optional: Custom code, title, description, is_indexed, category_id
+
+- **Get**: Retrieve details of a specific short link
+  - Required: Short code
+
+- **List**: List all your short links
+
+- **Update**: Update an existing short link
+  - Required: Short code
+  - Optional: URL, title, description, is_indexed, category_id
+
+- **Delete**: Delete a short link
+  - Required: Short code
+
+### Category Resource
+
+Organize links into categories:
+
+- **Create**: Create a new category
+  - Required: Name
+  - Optional: Color (hex), icon (Font Awesome name)
+
+- **Get**: Retrieve details of a specific category
+  - Required: Category ID
+
+- **List**: List all your categories
+
+- **Update**: Update an existing category
+  - Required: Category ID, name
+  - Optional: Color, icon
+
+- **Delete**: Delete a category
+  - Required: Category ID
+
+### Stats Resource
+
+Track link performance:
+
+- **Get**: Get statistics for a short link
+  - Required: Short code
+  - Optional: Period (day, week, month, year, all)
+
+## Credentials
+
+This node requires Qlynk API credentials. To set them up:
+
+1. Go to your [Qlynk dashboard](https://qlynk.fr/dashboard)
+2. Navigate to **Profile** > **API Keys**
+3. Click **Generate New Key**
+4. Copy the generated API key
+5. In n8n, create new Qlynk API credentials:
+   - **API URL**: `https://qlynk.fr` (or your self-hosted instance URL)
+   - **API Key**: Paste your API key
+
+The credentials will be automatically tested when you save them.
+
+## Compatibility
+
+- **Minimum n8n version**: 0.240.0
+- **Tested with n8n version**: 1.52.0
+- **Minimum Qlynk API version**: v1
+
+## Usage
+
+### As a Regular Node
+
+1. Add the Qlynk node to your workflow
+2. Select the **Resource** (URL, Category, or Stats)
+3. Select the **Operation** you want to perform
+4. Configure the required and optional parameters
+5. Connect your Qlynk API credentials
+6. Execute the workflow
+
+#### Example: Create a Short Link
+
+```json
+{
+  "resource": "url",
+  "operation": "create",
+  "url": "https://example.com/my-very-long-url",
+  "custom_code": "my-link",
+  "title": "My Example Link",
+  "description": "This is an example short link",
+  "is_indexed": true,
+  "category_id": 1
+}
+```
+
+Response:
+```json
+{
+  "short_code": "my-link",
+  "short_url": "https://qlynk.fr/my-link",
+  "original_url": "https://example.com/my-very-long-url",
+  "title": "My Example Link",
+  "description": "This is an example short link",
+  "is_indexed": 1,
+  "category_id": 1,
+  "created_at": "2025-10-28 10:30:00"
+}
+```
+
+### As an AI Tool
+
+The Qlynk node can be used as a tool by AI agents in n8n!
+
+#### Prerequisites for AI Tool Usage
+
+If you're using a community node (not built-in), you need to enable the following environment variable:
+
+```bash
+N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=true
+```
+
+#### Setup
+
+1. Add an **AI Agent** node to your workflow
+2. Connect the Qlynk node to the AI Agent's **Tools** input
+3. Configure the AI Agent with a language model (OpenAI, Anthropic, etc.)
+4. The AI can now automatically use Qlynk to:
+   - Create short links when needed
+   - Retrieve link information
+   - Get statistics
+   - Manage categories
+
+#### Example AI Agent Prompt
+
+```
+Create a short link for https://docs.example.com/api and
+give me the statistics for the last week.
+```
+
+The AI agent will:
+1. Use the Qlynk node to create the short link
+2. Use the Qlynk node to fetch statistics
+3. Return a formatted response with the information
+
+## Resources
+
+- [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
+- [Qlynk API documentation](https://qlynk.fr/docs/api)
+- [Qlynk website](https://qlynk.fr)
+- [GitHub repository](https://github.com/ClosiQode/n8n-nodes-qlynk)
+
+## Version history
+
+### 1.0.0 (2025-10-28)
+
+Initial release with support for:
+- URL operations (create, get, list, update, delete)
+- Category operations (create, get, list, update, delete)
+- Stats operations (get)
+- AI agent compatibility with `usableAsTool: true`
+
+## Development
+
+To develop and test this node locally:
+
+### Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/ClosiQode/n8n-nodes-qlynk.git
+cd n8n-nodes-qlynk
+
+# Install dependencies
+npm install
+
+# Build the node
+npm run build
+```
+
+### Local Testing
+
+```bash
+# Link the node locally
+npm link
+
+# In your n8n installation directory
+cd ~/.n8n/custom
+npm init -y
+npm link n8n-nodes-qlynk
+
+# Start n8n
+n8n start
+```
+
+### Development Mode
+
+```bash
+# Watch for changes and rebuild automatically
+npm run dev
+```
+
+### Code Quality
+
+```bash
+# Format code
+npm run format
+
+# Lint code
+npm run lint
+
+# Fix linting issues
+npm run lintfix
+```
+
+## Publishing to npm
+
+### Initial Setup
+
+1. Create an npm account at [npmjs.com](https://www.npmjs.com/)
+2. Login via CLI:
+   ```bash
+   npm login
+   ```
+
+### Publishing Steps
+
+```bash
+# 1. Ensure all tests pass
+npm run build
+npm run lint
+
+# 2. Update version in package.json (follow semver)
+npm version patch  # or minor, or major
+
+# 3. Publish to npm
+npm publish
+
+# 4. Push tags to GitHub
+git push --follow-tags
+```
+
+### Publishing Checklist
+
+- [ ] All code is tested and working
+- [ ] README is up to date
+- [ ] Version number updated in package.json
+- [ ] CHANGELOG updated with changes
+- [ ] Git committed and pushed
+- [ ] npm publish executed successfully
+- [ ] Package appears on npmjs.com
+- [ ] Test installation: `npm install n8n-nodes-qlynk`
+
+### Updating Existing Package
+
+```bash
+# 1. Make your changes
+# 2. Update version
+npm version patch  # increment version
+
+# 3. Build and publish
+npm run build
+npm publish
+
+# 4. Push to GitHub
+git push --follow-tags
+```
+
+## License
+
+[MIT](LICENSE.md)
+
+## Support
+
+For issues, questions, or contributions:
+
+- Open an issue on [GitHub](https://github.com/ClosiQode/n8n-nodes-qlynk/issues)
+- Contact: contact@qlynk.fr
+- Qlynk documentation: https://qlynk.fr/docs
+
+---
+
+Made with ❤️ by [ClosiQode](https://github.com/ClosiQode)

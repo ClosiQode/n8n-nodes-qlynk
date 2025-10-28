@@ -1,0 +1,80 @@
+{
+  "name": "Qlynk Example Workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "d4f1b2f1-1234-5678-9abc-def012345678",
+      "name": "When clicking 'Test workflow'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "resource": "url",
+        "operation": "create",
+        "url": "https://example.com/my-long-url",
+        "custom_code": "example",
+        "title": "Example Link",
+        "description": "This is a test link created from n8n",
+        "is_indexed": true,
+        "category_id": 0
+      },
+      "id": "a1b2c3d4-5678-90ab-cdef-1234567890ab",
+      "name": "Qlynk - Create Link",
+      "type": "n8n-nodes-qlynk.qlynk",
+      "typeVersion": 1,
+      "position": [450, 300],
+      "credentials": {
+        "qlynkApi": {
+          "id": "1",
+          "name": "Qlynk API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "stats",
+        "operation": "get",
+        "short_code": "={{$json.short_code}}",
+        "period": "week"
+      },
+      "id": "b2c3d4e5-6789-01bc-def0-234567890abc",
+      "name": "Qlynk - Get Stats",
+      "type": "n8n-nodes-qlynk.qlynk",
+      "typeVersion": 1,
+      "position": [650, 300],
+      "credentials": {
+        "qlynkApi": {
+          "id": "1",
+          "name": "Qlynk API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking 'Test workflow'": {
+      "main": [
+        [
+          {
+            "node": "Qlynk - Create Link",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qlynk - Create Link": {
+      "main": [
+        [
+          {
+            "node": "Qlynk - Get Stats",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {}
+}

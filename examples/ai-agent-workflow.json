@@ -1,0 +1,99 @@
+{
+  "name": "Qlynk AI Agent Example",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "e1f2g3h4-1234-5678-90ab-cdef12345678",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "chat-trigger-example"
+    },
+    {
+      "parameters": {
+        "model": "gpt-4",
+        "options": {}
+      },
+      "id": "f2g3h4i5-2345-6789-01bc-def123456789",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [650, 200],
+      "credentials": {
+        "openAiApi": {
+          "id": "2",
+          "name": "OpenAI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "url",
+        "operation": "create"
+      },
+      "id": "g3h4i5j6-3456-7890-12cd-ef0123456789",
+      "name": "Qlynk",
+      "type": "n8n-nodes-qlynk.qlynk",
+      "typeVersion": 1,
+      "position": [650, 400],
+      "credentials": {
+        "qlynkApi": {
+          "id": "1",
+          "name": "Qlynk API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "=You are a helpful assistant that can create and manage short links using Qlynk.\n\nWhen a user asks you to create a short link, use the Qlynk tool to:\n- Create a short link from a long URL\n- Optionally set a custom code\n- Add a title and description\n- Organize links into categories\n- Get statistics for existing links\n\nAlways provide the complete short URL in your response.",
+        "options": {
+          "systemMessage": "={{$json.text}}"
+        }
+      },
+      "id": "h4i5j6k7-4567-8901-23de-f01234567890",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1,
+      "position": [450, 300]
+    }
+  ],
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Qlynk": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {}
+}
