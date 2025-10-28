@@ -9,7 +9,7 @@ export class Qlynk implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Qlynk',
 		name: 'qlynk',
-		icon: 'file:qlynk.svg',
+		icon: 'file:qlynk.png',
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
