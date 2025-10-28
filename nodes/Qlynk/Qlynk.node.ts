@@ -3,8 +3,6 @@ import {
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
-	NodeConnectionType,
-	NodeOperationError,
 } from 'n8n-workflow';
 
 export class Qlynk implements INodeType {
@@ -19,8 +17,8 @@ export class Qlynk implements INodeType {
 		defaults: {
 			name: 'Qlynk',
 		},
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+		inputs: ['main'],
+		outputs: ['main'],
 		usableAsTool: true,
 		credentials: [
 			{
@@ -670,7 +668,7 @@ export class Qlynk implements INodeType {
 				if (this.continueOnFail()) {
 					returnData.push({
 						json: {
-							error: error.message,
+							error: (error as Error).message,
 						},
 						pairedItem: { item: i },
 					});
