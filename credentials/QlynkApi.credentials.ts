@@ -11,15 +11,6 @@ export class QlynkApi implements ICredentialType {
 	documentationUrl = 'https://qlynk.fr/docs/api';
 	properties: INodeProperties[] = [
 		{
-			displayName: 'API URL',
-			name: 'apiUrl',
-			type: 'string',
-			default: 'https://qlynk.fr',
-			placeholder: 'https://qlynk.fr',
-			description: 'The base URL of your Qlynk instance',
-			required: true,
-		},
-		{
 			displayName: 'API Key',
 			name: 'apiKey',
 			type: 'string',
@@ -46,7 +37,7 @@ export class QlynkApi implements ICredentialType {
 	// Test the credentials
 	test: ICredentialTestRequest = {
 		request: {
-			baseURL: '={{$credentials.apiUrl}}',
+			baseURL: 'https://qlynk.fr',
 			url: '/api/v1/categories',
 			method: 'GET',
 		},

@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2025-10-28
+
+### Fixed
+
+#### Credentials Configuration
+- **Removed API URL field from credentials** - L'utilisateur n'a plus besoin de configurer l'URL de l'API
+- **URL hardcodée** - L'URL de l'API Qlynk (`https://qlynk.fr/api/v1`) est maintenant hardcodée dans le code
+- **Simplification** - L'utilisateur ne configure plus que sa clé API, l'expérience est plus simple
+
+#### API Requests
+- **URLs complètes** - Toutes les requêtes API utilisent maintenant des URLs absolues
+- **Test des credentials fonctionnel** - Le test de connexion lors de la sauvegarde des credentials fonctionne correctement
+- **Élimination des erreurs de retry** - Les problèmes de tentatives de connexion répétées sont résolus
+
+### Changed
+- Credentials ne demandent plus que la clé API (l'URL n'est plus configurable)
+- Toutes les requêtes utilisent des URLs complètes vers `https://qlynk.fr/api/v1`
+
 ## [1.0.0] - 2025-10-28
 
 ### Added

@@ -435,7 +435,7 @@ export class Qlynk implements INodeType {
 							'qlynkApi',
 							{
 								method: 'POST',
-								url: '/api/v1/urls',
+								url: 'https://qlynk.fr/api/v1/urls',
 								body,
 								json: true,
 							},
@@ -455,7 +455,7 @@ export class Qlynk implements INodeType {
 							'qlynkApi',
 							{
 								method: 'GET',
-								url: `/api/v1/urls/${short_code}`,
+								url: `https://qlynk.fr/api/v1/urls/${short_code}`,
 								json: true,
 							},
 						);
@@ -472,7 +472,7 @@ export class Qlynk implements INodeType {
 							'qlynkApi',
 							{
 								method: 'GET',
-								url: '/api/v1/urls',
+								url: 'https://qlynk.fr/api/v1/urls',
 								json: true,
 							},
 						);
@@ -503,7 +503,7 @@ export class Qlynk implements INodeType {
 							'qlynkApi',
 							{
 								method: 'PUT',
-								url: `/api/v1/urls/${short_code}`,
+								url: `https://qlynk.fr/api/v1/urls/${short_code}`,
 								body,
 								json: true,
 							},
@@ -523,7 +523,7 @@ export class Qlynk implements INodeType {
 							'qlynkApi',
 							{
 								method: 'DELETE',
-								url: `/api/v1/urls/${short_code}`,
+								url: `https://qlynk.fr/api/v1/urls/${short_code}`,
 								json: true,
 							},
 						);
@@ -549,7 +549,7 @@ export class Qlynk implements INodeType {
 							'qlynkApi',
 							{
 								method: 'POST',
-								url: '/api/v1/categories',
+								url: 'https://qlynk.fr/api/v1/categories',
 								body,
 								json: true,
 							},
@@ -569,7 +569,7 @@ export class Qlynk implements INodeType {
 							'qlynkApi',
 							{
 								method: 'GET',
-								url: `/api/v1/categories/${category_id}`,
+								url: `https://qlynk.fr/api/v1/categories/${category_id}`,
 								json: true,
 							},
 						);
@@ -586,7 +586,7 @@ export class Qlynk implements INodeType {
 							'qlynkApi',
 							{
 								method: 'GET',
-								url: '/api/v1/categories',
+								url: 'https://qlynk.fr/api/v1/categories',
 								json: true,
 							},
 						);
@@ -610,7 +610,7 @@ export class Qlynk implements INodeType {
 							'qlynkApi',
 							{
 								method: 'PUT',
-								url: `/api/v1/categories/${category_id}`,
+								url: `https://qlynk.fr/api/v1/categories/${category_id}`,
 								body,
 								json: true,
 							},
@@ -630,7 +630,7 @@ export class Qlynk implements INodeType {
 							'qlynkApi',
 							{
 								method: 'DELETE',
-								url: `/api/v1/categories/${category_id}`,
+								url: `https://qlynk.fr/api/v1/categories/${category_id}`,
 								json: true,
 							},
 						);
@@ -653,7 +653,7 @@ export class Qlynk implements INodeType {
 							'qlynkApi',
 							{
 								method: 'GET',
-								url: `/api/v1/stats/${short_code}?period=${period}`,
+								url: `https://qlynk.fr/api/v1/stats/${short_code}?period=${period}`,
 								json: true,
 							},
 						);
