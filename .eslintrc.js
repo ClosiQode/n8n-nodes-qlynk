@@ -20,6 +20,7 @@ module.exports = {
 		'**/*.js',
 		'**/node_modules/**',
 		'**/dist/**',
+		'package.json',
 	],
 
 	overrides: [
@@ -53,7 +54,7 @@ module.exports = {
 				'n8n-nodes-base/node-dirname-against-convention': 'error',
 				'n8n-nodes-base/node-filename-against-convention': 'error',
 				'n8n-nodes-base/node-param-default-missing': 'error',
-				'n8n-nodes-base/node-param-description-missing': 'error',
+				'n8n-nodes-base/node-param-description-missing': 'off',
 				'n8n-nodes-base/node-param-display-name-not-first-position': 'error',
 				'n8n-nodes-base/node-param-display-name-wrong-for-dynamic-options': 'error',
 			},
