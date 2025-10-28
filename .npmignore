@@ -15,11 +15,17 @@ Thumbs.db
 # Config files
 tsconfig.json
 .eslintrc.js
+.eslintrc.prepublish.js
 .prettierrc.js
 gulpfile.js
 
-# Documentation (keep README, LICENSE, CHANGELOG)
+# Documentation (keep only README, LICENSE, CHANGELOG)
 CONTRIBUTING.md
+DEPLOYMENT.md
+QUICKSTART.md
+TEST.md
+COMMANDS.md
+PROJECT_SUMMARY.md
 examples/
 
 # Dependencies
