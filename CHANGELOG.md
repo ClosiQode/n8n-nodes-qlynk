@@ -5,6 +5,55 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] - 2025-10-29
+
+### 🔧 Critical Fix: AI Agent Tool Architecture
+
+**BREAKING CHANGE** from v1.1.0 - Cette version corrige l'erreur "Node already has a 'supplyData' method".
+
+### Fixed
+
+#### Architecture AI Agent Tools
+- **SUPPRESSION de `supplyData()`** - Community nodes ne doivent utiliser QUE `execute()`
+- **N8n crée automatiquement** un wrapper tool virtuel avec `usableAsTool: true`
+- **Plus d'imports LangChain** - Retrait de `@langchain/core` des dépendances
+- **Correction tsconfig.json** - Module Node16 pour imports modernes
+
+### Changed
+
+#### Node Implementation Pattern
+Les nodes implémentent maintenant **uniquement** :
+```typescript
+async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
+  // Logique du node
+}
+```
+
+Au lieu de :
+```typescript
+async supplyData() { ... }  // ❌ ERREUR
+async execute() { ... }
+```
+
+#### Descriptions optimisées pour AI
+- Format "Use this tool when..." pour clarté LLM
+- Descriptions détaillées des paramètres
+- Exemples de valeurs dans placeholders
+
+### Technical Details
+
+**Pourquoi ce changement ?**
+- N8n PR #13075 (v1.79.0) a ajouté le support des community nodes comme AI tools
+- Le système crée un "virtual tool wrapper" automatiquement
+- Ajouter `supplyData()` manuellement crée un conflit → erreur au runtime
+
+**Configuration requise :**
+```bash
+N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=true
+```
+
+**Package size** : 26.8 kB (tarball) - Réduction grâce au retrait de LangChain
+
 ## [1.1.0] - 2025-10-29
 
 ### 🚀 Major Update: Specialized Nodes Architecture

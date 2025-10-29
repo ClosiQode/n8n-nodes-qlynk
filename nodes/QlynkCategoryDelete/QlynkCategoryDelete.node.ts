@@ -3,23 +3,19 @@ import {
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
-	ISupplyDataFunctions,
-	SupplyData,
-	
 } from 'n8n-workflow';
-import { DynamicTool } from '@langchain/core/tools';
-import { makeQlynkRequest, formatToolResponse, parseToolInput } from '../utils/helpers';
+import { makeQlynkRequest } from '../utils/helpers';
 
 export class QlynkCategoryDelete implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Qlynk Category Delete',
+		displayName: 'Qlynk URL Delete',
 		name: 'qlynkCategoryDelete',
 		icon: 'file:qlynk.png',
 		group: ['transform'],
 		version: 1,
-		description: 'Delete a category',
+		description: 'Use this tool to permanently delete a category by its code. This action cannot be undone. All statistics associated with this link will also be deleted.',
 		defaults: {
-			name: 'Qlynk Category Delete',
+			name: 'Qlynk URL Delete',
 		},
 		inputs: ['main'],
 		outputs: ['main'],
@@ -32,36 +28,16 @@ export class QlynkCategoryDelete implements INodeType {
 		],
 		properties: [
 			{
-				displayName: 'Category ID',
+				displayName: 'Short Code',
 				name: 'category_id',
 				type: 'number',
-				default: 0,
+				default: '',
 				placeholder: '1',
-				description: 'The ID of the category to delete',
+				description: 'The numeric ID of the category to delete',
 				required: true,
 			},
 		],
 	};
-
-	async supplyData(this: ISupplyDataFunctions): Promise<SupplyData> {
-		const tool = new DynamicTool({
-			name: 'qlynk_category_delete',
-			description: 'Delete a category by its ID. Input should be a JSON object with: category_id (required)',
-			func: async (input: string): Promise<string> => {
-				const params = parseToolInput(input);
-				const response = await makeQlynkRequest(
-					this,
-					'DELETE',
-					`/categories/${params.category_id}`,
-				);
-				return formatToolResponse(response);
-			},
-		});
-
-		return {
-			response: tool,
-		};
-	}
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();

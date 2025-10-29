@@ -3,12 +3,8 @@ import {
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
-	ISupplyDataFunctions,
-	SupplyData,
-	
 } from 'n8n-workflow';
-import { DynamicTool } from '@langchain/core/tools';
-import { makeQlynkRequest, formatToolResponse, parseToolInput } from '../utils/helpers';
+import { makeQlynkRequest } from '../utils/helpers';
 
 export class QlynkStats implements INodeType {
 	description: INodeTypeDescription = {
@@ -17,7 +13,7 @@ export class QlynkStats implements INodeType {
 		icon: 'file:qlynk.png',
 		group: ['transform'],
 		version: 1,
-		description: 'Get statistics for a short link',
+		description: 'Use this tool to retrieve detailed statistics for a short link. Provide the short code and optionally a time period (day, week, month, year, or all). Returns visit counts, geographic data, devices, browsers, and referrers.',
 		defaults: {
 			name: 'Qlynk Stats',
 		},
@@ -37,7 +33,7 @@ export class QlynkStats implements INodeType {
 				type: 'string',
 				default: '',
 				placeholder: 'abc123',
-				description: 'The short code to get statistics for',
+				description: 'The short code of the link to get statistics for',
 				required: true,
 			},
 			{
@@ -67,32 +63,10 @@ export class QlynkStats implements INodeType {
 					},
 				],
 				default: 'week',
-				description: 'The time period for statistics',
+				description: 'The time period for the statistics. Choose "week" for last 7 days, "all" for complete history.',
 			},
 		],
 	};
-
-	async supplyData(this: ISupplyDataFunctions): Promise<SupplyData> {
-		const tool = new DynamicTool({
-			name: 'qlynk_stats_get',
-			description:
-				'Get statistics for a short link. Input should be a JSON object with: short_code (required), period (optional: day, week, month, year, all - default: week)',
-			func: async (input: string): Promise<string> => {
-				const params = parseToolInput(input);
-				const period = params.period || 'week';
-				const response = await makeQlynkRequest(
-					this,
-					'GET',
-					`/stats/${params.short_code}?period=${period}`,
-				);
-				return formatToolResponse(response);
-			},
-		});
-
-		return {
-			response: tool,
-		};
-	}
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
