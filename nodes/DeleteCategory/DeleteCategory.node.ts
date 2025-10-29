@@ -40,7 +40,7 @@ export class DeleteCategory implements INodeType {
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
-		const returnData: INodeExecutionData[] = [];
+		const returnData: any[] = [];
 
 		for (let i = 0; i < items.length; i++) {
 			try {
@@ -49,25 +49,16 @@ export class DeleteCategory implements INodeType {
 					throw new Error('The "category_id" parameter is required and must be > 0.');
 				}
 				const responseData = await makeQlynkRequest(this, 'DELETE', `/categories/${category_id}`);
-
-				returnData.push({
-					json: responseData,
-					pairedItem: { item: i },
-				});
+				returnData.push(responseData);
 			} catch (error) {
 				if (this.continueOnFail()) {
-					returnData.push({
-						json: {
-							error: (error as Error).message,
-						},
-						pairedItem: { item: i },
-					});
+					returnData.push({ error: (error as Error).message });
 					continue;
 				}
 				throw error;
 			}
 		}
 
-		return [returnData];
+		return [this.helpers.returnJsonArray(returnData)];
 	}
 }

@@ -30,28 +30,19 @@ export class ListUrls implements INodeType {
 	};
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
-		const returnData: INodeExecutionData[] = [];
+		const returnData: any[] = [];
 
 		try {
 			const responseData = await makeQlynkRequest(this, 'GET', '/urls');
-
-			returnData.push({
-				json: responseData,
-				pairedItem: { item: 0 },
-			});
+			returnData.push(responseData);
 		} catch (error) {
 			if (this.continueOnFail()) {
-				returnData.push({
-					json: {
-						error: (error as Error).message,
-					},
-					pairedItem: { item: 0 },
-				});
+				returnData.push({ error: (error as Error).message });
 			} else {
 				throw error;
 			}
 		}
 
-		return [returnData];
+		return [this.helpers.returnJsonArray(returnData)];
 	}
 }

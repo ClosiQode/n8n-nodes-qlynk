@@ -40,7 +40,7 @@ export class DeleteUrl implements INodeType {
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
-		const returnData: INodeExecutionData[] = [];
+		const returnData: any[] = [];
 
 		for (let i = 0; i < items.length; i++) {
 			try {
@@ -49,25 +49,16 @@ export class DeleteUrl implements INodeType {
 					throw new Error('The "short_code" parameter is required.');
 				}
 				const responseData = await makeQlynkRequest(this, 'DELETE', `/urls/${short_code}`);
-
-				returnData.push({
-					json: responseData,
-					pairedItem: { item: i },
-				});
+				returnData.push(responseData);
 			} catch (error) {
 				if (this.continueOnFail()) {
-					returnData.push({
-						json: {
-							error: (error as Error).message,
-						},
-						pairedItem: { item: i },
-					});
+					returnData.push({ error: (error as Error).message });
 					continue;
 				}
 				throw error;
 			}
 		}
 
-		return [returnData];
+		return [this.helpers.returnJsonArray(returnData)];
 	}
 }

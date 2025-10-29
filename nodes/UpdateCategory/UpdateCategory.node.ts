@@ -64,7 +64,7 @@ export class UpdateCategory implements INodeType {
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
-		const returnData: INodeExecutionData[] = [];
+		const returnData: any[] = [];
 
 		for (let i = 0; i < items.length; i++) {
 			try {
@@ -81,25 +81,16 @@ export class UpdateCategory implements INodeType {
 
 				const body = { name, color, icon };
 				const responseData = await makeQlynkRequest(this, 'PUT', `/categories/${category_id}`, body);
-
-				returnData.push({
-					json: responseData,
-					pairedItem: { item: i },
-				});
+				returnData.push(responseData);
 			} catch (error) {
 				if (this.continueOnFail()) {
-					returnData.push({
-						json: {
-							error: (error as Error).message,
-						},
-						pairedItem: { item: i },
-					});
+					returnData.push({ error: (error as Error).message });
 					continue;
 				}
 				throw error;
 			}
 		}
 
-		return [returnData];
+		return [this.helpers.returnJsonArray(returnData)];
 	}
 }

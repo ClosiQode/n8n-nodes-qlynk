@@ -229,6 +229,18 @@ The AI agent will:
 
 ## Version history
 
+### 1.2.1 (2025-10-29)
+
+**CRITICAL FIX: AI Agent tool response handling**
+- Changed all nodes to use `this.helpers.returnJsonArray()` instead of direct array return
+- Simplified data structure: removed `{json, pairedItem}` wrapper, now push raw response data
+- This matches the pattern used by native n8n nodes (Twilio, Telegram, HTTP Request, etc.)
+- **This should fix the issue where AI Agents see the tool in logs but don't receive responses**
+
+**What changed:**
+- Before: `returnData.push({json: responseData, pairedItem: {item: i}}); return [returnData];`
+- After: `returnData.push(responseData); return [this.helpers.returnJsonArray(returnData)];`
+
 ### 1.2.0 (2025-10-29)
 
 **Major AI Agent compatibility improvements:**
