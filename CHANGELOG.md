@@ -5,6 +5,121 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2025-10-29
+
+### 🚀 Major Update: Specialized Nodes Architecture
+
+Cette version révolutionne l'architecture du package avec **11 nodes spécialisés** remplaçant le node monolithique. Chaque opération API a maintenant son propre node, et **tous les nodes fonctionnent à la fois comme nodes workflow classiques ET comme tools IA**.
+
+### Added
+
+#### 11 Specialized Nodes (Dual-Mode: Workflow + AI Tool)
+
+**URL Management Nodes (5)**
+- **Qlynk URL Create** - Create new short links
+- **Qlynk URL Get** - Retrieve link by short code
+- **Qlynk URL List** - List all your short links
+- **Qlynk URL Update** - Update existing links
+- **Qlynk URL Delete** - Delete links
+
+**Category Management Nodes (5)**
+- **Qlynk Category Create** - Create new categories
+- **Qlynk Category Get** - Retrieve category by ID
+- **Qlynk Category List** - List all categories
+- **Qlynk Category Update** - Update category properties
+- **Qlynk Category Delete** - Delete categories
+
+**Statistics Node (1)**
+- **Qlynk Stats** - Get link statistics with period selection
+
+#### AI Agent Integration (LangChain)
+
+Chaque node implémente **deux méthodes** pour fonctionner dans les deux modes :
+- `execute()` - Pour utilisation dans workflows classiques
+- `supplyData()` - Pour utilisation comme tool IA (LangChain DynamicTool)
+
+**Caractéristiques AI Tools :**
+- Conversion automatique entrée/sortie JSON ↔ String
+- Descriptions détaillées pour les LLMs
+- Parsing intelligent des paramètres
+- Gestion d'erreurs optimisée pour les agents
+
+#### Infrastructure Changes
+
+**Nouveau système de helpers partagés** (`nodes/utils/`)
+- `helpers.ts` - Fonctions communes (API requests, formatting, parsing)
+- `types.ts` - Types TypeScript partagés
+
+**Dépendances**
+- Ajout de `@langchain/core` pour le support LangChain
+- Module system upgradé à Node16 pour compatibilité
+
+**Architecture modulaire**
+- Chaque node dans son propre dossier
+- Logo Qlynk copié dans chaque dossier de node
+- Outputs dual-mode : `['main', 'ai_tool']`
+- Inputs flexibles : `['main']`
+
+### Changed
+
+**Package.json**
+- Description mise à jour pour refléter les nodes multiples
+- Keywords enrichis : `ai-agent`, `langchain`
+- Référencement de tous les 12 nodes (11 nouveaux + 1 legacy)
+
+**TypeScript Configuration**
+- `module` : Node16
+- `moduleResolution` : node16
+- Support imports LangChain
+
+**Node Monolithique (Legacy)**
+- Le node `Qlynk` original est **conservé pour compatibilité**
+- Toujours fonctionnel pour les workflows existants
+- Recommandé de migrer vers les nodes spécialisés
+
+### Technical Implementation
+
+**Dual-Mode Pattern**
+```typescript
+// Chaque node implémente les deux méthodes :
+async supplyData(): Promise<SupplyData> {
+  return { response: new DynamicTool(...) };
+}
+
+async execute(): Promise<INodeExecutionData[][]> {
+  // Workflow logic
+}
+```
+
+**Helper Architecture**
+- `makeQlynkRequest()` - Requêtes API authentifiées
+- `formatToolResponse()` - Formatage JSON → String pour LLMs
+- `parseToolInput()` - Parsing String/Object → Paramètres
+
+**Node Connection Types**
+- Outputs : `NodeConnectionType.Main` + `NodeConnectionType.AiTool`
+- N8n décide automatiquement quelle méthode appeler selon le contexte
+
+### Migration Guide
+
+**Pour workflows existants :**
+- Aucune action requise - le node `Qlynk` original fonctionne toujours
+- Migration optionnelle vers nodes spécialisés pour meilleure granularité
+
+**Pour AI Agents :**
+- Activer `N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=true` dans N8n (v1.79+)
+- Connecter les nodes spécialisés aux ports `ai_tool` des AI Agents
+- Les tools apparaissent automatiquement avec noms : `qlynk_url_create`, `qlynk_category_list`, etc.
+
+### Benefits
+
+✅ **Granularité** - Un node = Une opération API
+✅ **AI Native** - Dual-mode intégré dès la conception
+✅ **Maintenance** - Code modulaire et helpers partagés
+✅ **Performance** - Chargement uniquement des nodes nécessaires
+✅ **Expérience** - Descriptions optimisées pour chaque contexte
+✅ **Compatibilité** - Node legacy conservé, migration douce
+
 ## [1.0.2] - 2025-10-29
 
 ### Fixed

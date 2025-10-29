@@ -1,14 +1,16 @@
 {
   "name": "n8n-nodes-qlynk",
-  "version": "1.0.2",
-  "description": "n8n node for Qlynk URL shortener - Create, manage and track short links",
+  "version": "1.1.0",
+  "description": "n8n nodes for Qlynk URL shortener - Create, manage and track short links with AI agent support",
   "keywords": [
     "n8n-community-node-package",
     "n8n",
     "qlynk",
     "url-shortener",
     "link-management",
-    "ai-tool"
+    "ai-tool",
+    "ai-agent",
+    "langchain"
   ],
   "license": "MIT",
   "homepage": "https://github.com/ClosiQode/n8n-nodes-qlynk",
@@ -38,10 +40,22 @@
       "dist/credentials/QlynkApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/Qlynk/Qlynk.node.js"
+      "dist/nodes/Qlynk/Qlynk.node.js",
+      "dist/nodes/QlynkUrlCreate/QlynkUrlCreate.node.js",
+      "dist/nodes/QlynkUrlGet/QlynkUrlGet.node.js",
+      "dist/nodes/QlynkUrlList/QlynkUrlList.node.js",
+      "dist/nodes/QlynkUrlUpdate/QlynkUrlUpdate.node.js",
+      "dist/nodes/QlynkUrlDelete/QlynkUrlDelete.node.js",
+      "dist/nodes/QlynkCategoryCreate/QlynkCategoryCreate.node.js",
+      "dist/nodes/QlynkCategoryGet/QlynkCategoryGet.node.js",
+      "dist/nodes/QlynkCategoryList/QlynkCategoryList.node.js",
+      "dist/nodes/QlynkCategoryUpdate/QlynkCategoryUpdate.node.js",
+      "dist/nodes/QlynkCategoryDelete/QlynkCategoryDelete.node.js",
+      "dist/nodes/QlynkStats/QlynkStats.node.js"
     ]
   },
   "devDependencies": {
+    "@langchain/core": "^1.0.2",
     "@types/node": "^18.16.0",
     "@typescript-eslint/parser": "^7.15.0",
     "eslint": "^8.56.0",
