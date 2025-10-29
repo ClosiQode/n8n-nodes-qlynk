@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.2] - 2025-10-29
+
+### 🔄 Republish: Cache Refresh
+
+**Republication de la version 1.1.1** pour résoudre problèmes de cache N8n.
+
+### Fixed
+
+#### Installation & Cache Issues
+- **Republish propre** - Force N8n à télécharger une version fraîche et ignorer cache corrompu
+- **Résolution erreur JSON parsing** - Erreur "Expected double-quoted property name" lors de l'installation
+- **Pas de changements de code** - Fonctionnalité identique à v1.1.1
+
+### Technical Details
+
+**Pourquoi ce republish ?**
+- Certaines installations N8n avaient du cache corrompu de v1.1.0 (qui avait l'erreur `supplyData`)
+- Le cache empêchait l'installation correcte de v1.1.1
+- Une nouvelle version force npm et N8n à tout re-télécharger proprement
+- Solution plus simple et fiable que de demander aux utilisateurs de nettoyer manuellement leur cache
+
+**Solution de contournement avant v1.1.2 :**
+```bash
+# Si vous avez encore des problèmes, nettoyez le cache N8n manuellement
+docker exec <container-id> rm -rf /home/node/.n8n/nodes/node_modules/n8n-nodes-qlynk
+docker restart <container-id>
+```
+
 ## [1.1.1] - 2025-10-29
 
 ### 🔧 Critical Fix: AI Agent Tool Architecture
