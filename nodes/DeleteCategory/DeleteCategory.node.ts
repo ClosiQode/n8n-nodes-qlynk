@@ -41,8 +41,10 @@ export class DeleteCategory implements INodeType {
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
 		const returnData: INodeExecutionData[] = [];
+		// When used as AI tool, items.length is 0 but we still need to execute once
+		const length = Math.max(items.length, 1);
 
-		for (let i = 0; i < items.length; i++) {
+		for (let i = 0; i < length; i++) {
 			try {
 				const category_id = this.getNodeParameter('category_id', i, 0) as number;
 				if (!category_id || category_id <= 0) {

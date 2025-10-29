@@ -70,8 +70,10 @@ export class Statistics implements INodeType {
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
 		const returnData: INodeExecutionData[] = [];
+		// When used as AI tool, items.length is 0 but we still need to execute once
+		const length = Math.max(items.length, 1);
 
-		for (let i = 0; i < items.length; i++) {
+		for (let i = 0; i < length; i++) {
 			try {
 				const short_code = this.getNodeParameter('short_code', i, '') as string;
 				if (!short_code || short_code.trim() === '') {

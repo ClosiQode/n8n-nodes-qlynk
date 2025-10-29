@@ -84,7 +84,10 @@ export class CreateUrl implements INodeType {
 		const items = this.getInputData();
 		const returnData: INodeExecutionData[] = [];
 
-		for (let i = 0; i < items.length; i++) {
+		// When used as AI tool, items.length is 0 but we still need to execute once
+		const length = Math.max(items.length, 1);
+
+		for (let i = 0; i < length; i++) {
 			try {
 				const url = this.getNodeParameter('url', i, '') as string;
 				const custom_code = this.getNodeParameter('custom_code', i, '') as string;

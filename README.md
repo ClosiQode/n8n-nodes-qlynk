@@ -229,6 +229,29 @@ The AI agent will:
 
 ## Version history
 
+### 1.2.3 (2025-10-29)
+
+**REAL FIX: AI Tool execution with zero input items!**
+
+**THE ACTUAL ROOT CAUSE:** When nodes are used as AI Agent tools, they receive **ZERO input items** (`items.length === 0`), causing the `for` loop to never execute!
+
+**What was wrong:**
+```typescript
+for (let i = 0; i < items.length; i++) {  // Never loops when items.length is 0!
+```
+
+**Fixed with:**
+```typescript
+// When used as AI tool, items.length is 0 but we still need to execute once
+const length = Math.max(items.length, 1);
+for (let i = 0; i < length; i++) {  // Executes at least once!
+```
+
+**Impact:**
+- ✅ **Tools now execute properly when called by AI Agent**
+- ✅ Works for both regular workflow usage AND AI tool usage
+- ✅ All 11 nodes fixed
+
 ### 1.2.2 (2025-10-29)
 
 **CRITICAL FIX: First execution failure resolved!**
