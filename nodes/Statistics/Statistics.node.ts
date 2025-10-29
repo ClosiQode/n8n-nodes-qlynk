@@ -6,16 +6,16 @@ import {
 } from 'n8n-workflow';
 import { makeQlynkRequest } from '../utils/helpers';
 
-export class QlynkStats implements INodeType {
+export class Statistics implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Qlynk Stats',
-		name: 'qlynkStats',
+		displayName: 'Qlynk - Statistics',
+		name: 'statistics',
 		icon: 'file:qlynk.png',
 		group: ['transform'],
 		version: 1,
 		description: 'Use this tool to retrieve detailed statistics for a short link. Provide the short code and optionally a time period (day, week, month, year, or all). Returns visit counts, geographic data, devices, browsers, and referrers.',
 		defaults: {
-			name: 'Qlynk Stats',
+			name: 'Statistics',
 		},
 		inputs: ['main'],
 		outputs: ['main'],

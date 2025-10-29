@@ -6,16 +6,16 @@ import {
 } from 'n8n-workflow';
 import { makeQlynkRequest } from '../utils/helpers';
 
-export class QlynkUrlList implements INodeType {
+export class ListUrls implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Qlynk URL List',
-		name: 'qlynkUrlList',
+		displayName: 'Qlynk - List URLs',
+		name: 'listUrls',
 		icon: 'file:qlynk.png',
 		group: ['transform'],
 		version: 1,
 		description: 'Use this tool to list all short links in your Qlynk account. Returns a complete list with all link details including codes, URLs, titles, categories, and statistics.',
 		defaults: {
-			name: 'Qlynk URL List',
+			name: 'List URLs',
 		},
 		inputs: ['main'],
 		outputs: ['main'],

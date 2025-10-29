@@ -6,16 +6,16 @@ import {
 } from 'n8n-workflow';
 import { makeQlynkRequest } from '../utils/helpers';
 
-export class QlynkCategoryDelete implements INodeType {
+export class DeleteUrl implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Qlynk URL Delete',
-		name: 'qlynkCategoryDelete',
+		displayName: 'Qlynk - Delete URL',
+		name: 'deleteUrl',
 		icon: 'file:qlynk.png',
 		group: ['transform'],
 		version: 1,
-		description: 'Use this tool to permanently delete a category by its code. This action cannot be undone. All statistics associated with this link will also be deleted.',
+		description: 'Use this tool to permanently delete a short link by its code. This action cannot be undone. All statistics associated with this link will also be deleted.',
 		defaults: {
-			name: 'Qlynk URL Delete',
+			name: 'Delete URL',
 		},
 		inputs: ['main'],
 		outputs: ['main'],
@@ -29,11 +29,11 @@ export class QlynkCategoryDelete implements INodeType {
 		properties: [
 			{
 				displayName: 'Short Code',
-				name: 'category_id',
-				type: 'number',
+				name: 'short_code',
+				type: 'string',
 				default: '',
-				placeholder: '1',
-				description: 'The numeric ID of the category to delete',
+				placeholder: 'abc123',
+				description: 'The short code of the link to delete',
 				required: true,
 			},
 		],
@@ -45,8 +45,8 @@ export class QlynkCategoryDelete implements INodeType {
 
 		for (let i = 0; i < items.length; i++) {
 			try {
-				const category_id = this.getNodeParameter('category_id', i) as number;
-				const responseData = await makeQlynkRequest(this, 'DELETE', `/categories/${category_id}`);
+				const short_code = this.getNodeParameter('short_code', i) as string;
+				const responseData = await makeQlynkRequest(this, 'DELETE', `/urls/${short_code}`);
 
 				returnData.push({
 					json: responseData,

@@ -6,16 +6,16 @@ import {
 } from 'n8n-workflow';
 import { makeQlynkRequest } from '../utils/helpers';
 
-export class QlynkCategoryGet implements INodeType {
+export class GetCategory implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Qlynk Category Get',
-		name: 'qlynkCategoryGet',
+		displayName: 'Qlynk - Get Category',
+		name: 'getCategory',
 		icon: 'file:qlynk.png',
 		group: ['transform'],
 		version: 1,
 		description: 'Use this tool to retrieve detailed information about a specific category by its ID. Returns the category name, color, icon, and associated links count.',
 		defaults: {
-			name: 'Qlynk Category Get',
+			name: 'Get Category',
 		},
 		inputs: ['main'],
 		outputs: ['main'],

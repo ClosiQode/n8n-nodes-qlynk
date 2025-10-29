@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-qlynk",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "n8n nodes for Qlynk URL shortener - Create, manage and track short links as workflow nodes and AI agent tools",
   "keywords": [
     "n8n-community-node-package",
@@ -39,17 +39,17 @@
       "dist/credentials/QlynkApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/QlynkUrlCreate/QlynkUrlCreate.node.js",
-      "dist/nodes/QlynkUrlGet/QlynkUrlGet.node.js",
-      "dist/nodes/QlynkUrlList/QlynkUrlList.node.js",
-      "dist/nodes/QlynkUrlUpdate/QlynkUrlUpdate.node.js",
-      "dist/nodes/QlynkUrlDelete/QlynkUrlDelete.node.js",
-      "dist/nodes/QlynkCategoryCreate/QlynkCategoryCreate.node.js",
-      "dist/nodes/QlynkCategoryGet/QlynkCategoryGet.node.js",
-      "dist/nodes/QlynkCategoryList/QlynkCategoryList.node.js",
-      "dist/nodes/QlynkCategoryUpdate/QlynkCategoryUpdate.node.js",
-      "dist/nodes/QlynkCategoryDelete/QlynkCategoryDelete.node.js",
-      "dist/nodes/QlynkStats/QlynkStats.node.js"
+      "dist/nodes/CreateUrl/CreateUrl.node.js",
+      "dist/nodes/GetUrl/GetUrl.node.js",
+      "dist/nodes/ListUrls/ListUrls.node.js",
+      "dist/nodes/UpdateUrl/UpdateUrl.node.js",
+      "dist/nodes/DeleteUrl/DeleteUrl.node.js",
+      "dist/nodes/CreateCategory/CreateCategory.node.js",
+      "dist/nodes/GetCategory/GetCategory.node.js",
+      "dist/nodes/ListCategories/ListCategories.node.js",
+      "dist/nodes/UpdateCategory/UpdateCategory.node.js",
+      "dist/nodes/DeleteCategory/DeleteCategory.node.js",
+      "dist/nodes/Statistics/Statistics.node.js"
     ]
   },
   "devDependencies": {

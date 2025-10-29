@@ -6,16 +6,16 @@ import {
 } from 'n8n-workflow';
 import { makeQlynkRequest } from '../utils/helpers';
 
-export class QlynkCategoryList implements INodeType {
+export class ListCategories implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Qlynk URL List',
-		name: 'qlynkCategoryList',
+		displayName: 'Qlynk - List Categories',
+		name: 'listCategories',
 		icon: 'file:qlynk.png',
 		group: ['transform'],
 		version: 1,
 		description: 'Use this tool to list all categories in your Qlynk account. Returns a complete list with IDs, names, colors, icons, and link counts for each category.',
 		defaults: {
-			name: 'Qlynk URL List',
+			name: 'List Categories',
 		},
 		inputs: ['main'],
 		outputs: ['main'],

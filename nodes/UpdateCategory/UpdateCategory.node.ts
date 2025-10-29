@@ -6,16 +6,16 @@ import {
 } from 'n8n-workflow';
 import { makeQlynkRequest } from '../utils/helpers';
 
-export class QlynkCategoryUpdate implements INodeType {
+export class UpdateCategory implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Qlynk Category Update',
-		name: 'qlynkCategoryUpdate',
+		displayName: 'Qlynk - Update Category',
+		name: 'updateCategory',
 		icon: 'file:qlynk.png',
 		group: ['transform'],
 		version: 1,
 		description: 'Use this tool to update an existing category. You can change its name, color, or icon. Provide the category ID and the new values.',
 		defaults: {
-			name: 'Qlynk Category Update',
+			name: 'Update Category',
 		},
 		inputs: ['main'],
 		outputs: ['main'],

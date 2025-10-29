@@ -6,16 +6,16 @@ import {
 } from 'n8n-workflow';
 import { makeQlynkRequest } from '../utils/helpers';
 
-export class QlynkUrlDelete implements INodeType {
+export class GetUrl implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Qlynk URL Delete',
-		name: 'qlynkUrlDelete',
+		displayName: 'Qlynk - Get URL',
+		name: 'getUrl',
 		icon: 'file:qlynk.png',
 		group: ['transform'],
 		version: 1,
-		description: 'Use this tool to permanently delete a short link by its code. This action cannot be undone. All statistics associated with this link will also be deleted.',
+		description: 'Use this tool to retrieve detailed information about a specific short link by its short code. Returns all link data including the original URL, title, description, statistics, and metadata.',
 		defaults: {
-			name: 'Qlynk URL Delete',
+			name: 'Get URL',
 		},
 		inputs: ['main'],
 		outputs: ['main'],
@@ -33,7 +33,7 @@ export class QlynkUrlDelete implements INodeType {
 				type: 'string',
 				default: '',
 				placeholder: 'abc123',
-				description: 'The short code of the link to delete',
+				description: 'The short code of the link to retrieve (the part after qlynk.fr/)',
 				required: true,
 			},
 		],
@@ -46,7 +46,7 @@ export class QlynkUrlDelete implements INodeType {
 		for (let i = 0; i < items.length; i++) {
 			try {
 				const short_code = this.getNodeParameter('short_code', i) as string;
-				const responseData = await makeQlynkRequest(this, 'DELETE', `/urls/${short_code}`);
+				const responseData = await makeQlynkRequest(this, 'GET', `/urls/${short_code}`);
 
 				returnData.push({
 					json: responseData,

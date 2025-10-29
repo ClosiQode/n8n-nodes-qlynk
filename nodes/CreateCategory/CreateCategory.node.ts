@@ -6,16 +6,16 @@ import {
 } from "n8n-workflow";
 import { makeQlynkRequest } from "../utils/helpers";
 
-export class QlynkCategoryCreate implements INodeType {
+export class CreateCategory implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: "Qlynk Category Create",
-		name: "qlynkCategoryCreate",
+		displayName: "Qlynk - Create Category",
+		name: "createCategory",
 		icon: "file:qlynk.png",
 		group: ["transform"],
 		version: 1,
 		description: "Use this tool to create a new category for organizing your short links. Provide a name, and optionally customize the color and icon. Returns the created category with its ID.",
 		defaults: {
-			name: "Qlynk Category Create",
+			name: "Create Category",
 		},
 		inputs: ["main"],
 		outputs: ["main"],
