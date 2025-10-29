@@ -5,6 +5,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.5] - 2025-10-29
+
+### 🧪 Test: Temporarily Disable usableAsTool
+
+**Test pour diagnostiquer le problème d'installation**
+
+### Changed
+
+- **DÉSACTIVATION TEMPORAIRE de `usableAsTool: true`** - Tous les nodes fonctionnent maintenant uniquement comme nodes workflow classiques
+- **Test de diagnostic** - Cette version permet de vérifier si le problème `SQLITE_CONSTRAINT` vient de l'interaction entre "multiple nodes" + "usableAsTool"
+
+### Technical Details
+
+**Pourquoi ce test ?**
+- v1.0.2 (1 node monolithique) s'installait sans problème
+- v1.1.0-1.1.4 (11 nodes spécialisés avec usableAsTool) causent l'erreur `SQLITE_CONSTRAINT: UNIQUE constraint failed: installed_nodes.name`
+- GitHub Issue #10699 documente des problèmes avec plusieurs nodes dans le même package
+- Cette version teste si `usableAsTool: true` sur 11 nodes cause le conflit
+
+**Si cette version s'installe correctement:**
+- Le problème vient bien de l'interaction "multiple nodes + usableAsTool"
+- Il faudra trouver une solution alternative pour AI Agent support (peut-être via HTTP Request node ou autre méthode)
+
+**Si cette version échoue aussi:**
+- Le problème vient d'autre chose (structure du package, noms de nodes, etc.)
+- Il faudra investiguer plus en profondeur
+
+**IMPORTANT:** Cette version est TEMPORAIRE pour diagnostic uniquement. Les nodes NE FONCTIONNENT PAS comme AI tools dans cette version.
+
 ## [1.1.4] - 2025-10-29
 
 ### 🔧 Fix: Complete Removal of Legacy Node Files

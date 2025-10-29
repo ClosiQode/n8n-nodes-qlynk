@@ -19,7 +19,7 @@ export class QlynkUrlGet implements INodeType {
 		},
 		inputs: ['main'],
 		outputs: ['main'],
-		usableAsTool: true,
+		// usableAsTool: true,
 		credentials: [
 			{
 				name: 'qlynkApi',

@@ -1,0 +1,114 @@
+{
+  "_id": "n8n-nodes-qlynk@1.1.1",
+  "_rev": "5-f4f13ef46ac51264d9dcd399e4eeb5fa",
+  "name": "n8n-nodes-qlynk",
+  "dist-tags": {
+    "latest": "1.1.1"
+  },
+  "versions": [
+    "1.0.0",
+    "1.0.1",
+    "1.0.2",
+    "1.1.0",
+    "1.1.1"
+  ],
+  "time": {
+    "created": "2025-10-28T22:39:48.376Z",
+    "modified": "2025-10-29T08:07:43.378Z",
+    "1.0.0": "2025-10-28T22:39:48.592Z",
+    "1.0.1": "2025-10-28T23:05:31.805Z",
+    "1.0.2": "2025-10-28T23:11:46.394Z",
+    "1.1.0": "2025-10-29T07:42:10.312Z",
+    "1.1.1": "2025-10-29T08:07:43.171Z"
+  },
+  "bugs": {
+    "url": "https://github.com/ClosiQode/n8n-nodes-qlynk/issues"
+  },
+  "author": "ClosiQode <contact@qlynk.fr>",
+  "license": "MIT",
+  "homepage": "https://github.com/ClosiQode/n8n-nodes-qlynk",
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n",
+    "qlynk",
+    "url-shortener",
+    "link-management",
+    "ai-tool",
+    "ai-agent"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ClosiQode/n8n-nodes-qlynk.git"
+  },
+  "description": "n8n nodes for Qlynk URL shortener - Create, manage and track short links as workflow nodes and AI agent tools",
+  "maintainers": [
+    "closiqode <closiqode@gmail.com>"
+  ],
+  "readmeFilename": "README.md",
+  "version": "1.1.1",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && gulp build:icons",
+    "dev": "tsc --watch",
+    "format": "prettier nodes credentials --write",
+    "lint": "eslint nodes credentials",
+    "lintfix": "eslint nodes credentials --fix",
+    "prepublishOnly": "npm run build && npm run lint -c .eslintrc.prepublish.js"
+  },
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/QlynkApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/Qlynk/Qlynk.node.js",
+      "dist/nodes/QlynkUrlCreate/QlynkUrlCreate.node.js",
+      "dist/nodes/QlynkUrlGet/QlynkUrlGet.node.js",
+      "dist/nodes/QlynkUrlList/QlynkUrlList.node.js",
+      "dist/nodes/QlynkUrlUpdate/QlynkUrlUpdate.node.js",
+      "dist/nodes/QlynkUrlDelete/QlynkUrlDelete.node.js",
+      "dist/nodes/QlynkCategoryCreate/QlynkCategoryCreate.node.js",
+      "dist/nodes/QlynkCategoryGet/QlynkCategoryGet.node.js",
+      "dist/nodes/QlynkCategoryList/QlynkCategoryList.node.js",
+      "dist/nodes/QlynkCategoryUpdate/QlynkCategoryUpdate.node.js",
+      "dist/nodes/QlynkCategoryDelete/QlynkCategoryDelete.node.js",
+      "dist/nodes/QlynkStats/QlynkStats.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^18.16.0",
+    "@typescript-eslint/parser": "^7.15.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-n8n-nodes-base": "^1.16.1",
+    "gulp": "^4.0.2",
+    "n8n-workflow": "^1.52.0",
+    "prettier": "^3.3.2",
+    "typescript": "^5.5.3"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  },
+  "gitHead": "d26f684f8135bb04b05c5cbbc4755bc09f27b05f",
+  "_nodeVersion": "21.6.0",
+  "_npmVersion": "10.9.0",
+  "dist": {
+    "integrity": "sha512-z76iUpVxo4vZ61NvLUPlDRm68JoqLgIVp7eSs7+30V9iifEJgVAKYrCjS3/UpXNWWd69S0mUx9/c/S+yWSs+Yw==",
+    "shasum": "68379b1cd4578965e6e6f9e724016ad3767bf7ca",
+    "tarball": "https://registry.npmjs.org/n8n-nodes-qlynk/-/n8n-nodes-qlynk-1.1.1.tgz",
+    "fileCount": 46,
+    "unpackedSize": 253590,
+    "signatures": [
+      {
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+        "sig": "MEUCIQCU0XFsvrZqjYPNKR/rtHZW5DpJC5vH2vHF3F/2usCl5gIgFicN/rQ4SDpOUxh8N44MIUz3ROgEnJSVhYGoK1a2g1U="
+      }
+    ]
+  },
+  "_npmUser": "closiqode <closiqode@gmail.com>",
+  "directories": {},
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages-npm-production",
+    "tmp": "tmp/n8n-nodes-qlynk_1.1.1_1761725262984_0.46128224523001116"
+  },
+  "_hasShrinkwrap": false
+}
