@@ -5,6 +5,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.3] - 2025-10-29
+
+### 🔧 Fix: Remove Legacy Monolithic Node
+
+**Résolution du conflit "UNIQUE constraint failed: installed_nodes.name"**
+
+### Changed
+
+#### Node Architecture
+- **SUPPRESSION du node monolithique "Qlynk"** - Retire le node legacy qui causait des conflits
+- **Garde uniquement les 11 nodes spécialisés** - Un node par opération API
+- **Résout l'erreur SQLITE_CONSTRAINT** - Plus de conflit de noms lors de l'installation
+
+### Technical Details
+
+**Pourquoi ce changement ?**
+- Le node monolithique "Qlynk" (v1.0.0) coexistait avec les 11 nodes spécialisés (v1.1.0+)
+- Cette coexistence causait un conflit de noms lors de l'enregistrement dans N8n
+- Erreur: `SQLITE_CONSTRAINT: UNIQUE constraint failed: installed_nodes.name`
+- Solution: Retirer complètement le node legacy, utiliser uniquement les nodes spécialisés
+
+**Migration depuis v1.0.x:**
+Si vous utilisiez le node "Qlynk" monolithique, vous devez migrer vers les nodes spécialisés:
+- `Qlynk` (resource: url, operation: create) → `Qlynk URL Create`
+- `Qlynk` (resource: url, operation: get) → `Qlynk URL Get`
+- `Qlynk` (resource: category, operation: create) → `Qlynk Category Create`
+- etc.
+
+**Avantages des nodes spécialisés:**
+- ✅ Meilleure découvrabilité dans l'interface N8n
+- ✅ Configuration plus simple (pas de sélection resource/operation)
+- ✅ Descriptions optimisées pour chaque opération
+- ✅ Compatible AI Agent tools sans conflit
+
 ## [1.1.2] - 2025-10-29
 
 ### 🔄 Republish: Cache Refresh
