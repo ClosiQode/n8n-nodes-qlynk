@@ -89,12 +89,13 @@ export class CreateUrl implements INodeType {
 
 		for (let i = 0; i < length; i++) {
 			try {
-				const url = this.getNodeParameter('url', i, '') as string;
-				const custom_code = this.getNodeParameter('custom_code', i, '') as string;
-				const title = this.getNodeParameter('title', i, '') as string;
-				const description = this.getNodeParameter('description', i, '') as string;
-				const is_indexed = this.getNodeParameter('is_indexed', i, true) as boolean;
-				const category_id = this.getNodeParameter('category_id', i, 0) as number;
+				// Always use index 0 for parameters (they come from the node config, not items)
+				const url = this.getNodeParameter('url', 0, '') as string;
+				const custom_code = this.getNodeParameter('custom_code', 0, '') as string;
+				const title = this.getNodeParameter('title', 0, '') as string;
+				const description = this.getNodeParameter('description', 0, '') as string;
+				const is_indexed = this.getNodeParameter('is_indexed', 0, true) as boolean;
+				const category_id = this.getNodeParameter('category_id', 0, 0) as number;
 
 				// Validation manuelle pour AI Agent compatibility
 				if (!url || url.trim() === '') {
@@ -119,6 +120,6 @@ export class CreateUrl implements INodeType {
 			}
 		}
 
-		return this.prepareOutputData(returnData);
+		return [returnData];
 	}
 }

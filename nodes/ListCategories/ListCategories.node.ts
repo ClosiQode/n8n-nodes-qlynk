@@ -43,6 +43,6 @@ export class ListCategories implements INodeType {
 			}
 		}
 
-		return this.prepareOutputData(returnData);
+		return [returnData];
 	}
 }

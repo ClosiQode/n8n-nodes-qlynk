@@ -88,15 +88,15 @@ export class UpdateUrl implements INodeType {
 
 		for (let i = 0; i < length; i++) {
 			try {
-				const short_code = this.getNodeParameter('short_code', i, '') as string;
+				const short_code = this.getNodeParameter('short_code', 0, '') as string;
 				if (!short_code || short_code.trim() === '') {
 					throw new Error('The "short_code" parameter is required.');
 				}
-				const url = this.getNodeParameter('url', i, '') as string;
-				const title = this.getNodeParameter('title', i, '') as string;
-				const description = this.getNodeParameter('description', i, '') as string;
-				const is_indexed = this.getNodeParameter('is_indexed', i, true) as boolean;
-				const category_id = this.getNodeParameter('category_id', i, 0) as number;
+				const url = this.getNodeParameter('url', 0, '') as string;
+				const title = this.getNodeParameter('title', 0, '') as string;
+				const description = this.getNodeParameter('description', 0, '') as string;
+				const is_indexed = this.getNodeParameter('is_indexed', 0, true) as boolean;
+				const category_id = this.getNodeParameter('category_id', 0, 0) as number;
 
 				const body: any = {};
 				if (url) body.url = url;
@@ -116,6 +116,6 @@ export class UpdateUrl implements INodeType {
 			}
 		}
 
-		return this.prepareOutputData(returnData);
+		return [returnData];
 	}
 }

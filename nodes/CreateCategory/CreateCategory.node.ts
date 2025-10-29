@@ -81,6 +81,6 @@ export class CreateCategory implements INodeType {
 			}
 		}
 
-		return this.prepareOutputData(returnData);
+		return [returnData];
 	}
 }

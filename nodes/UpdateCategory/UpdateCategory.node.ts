@@ -70,16 +70,16 @@ export class UpdateCategory implements INodeType {
 
 		for (let i = 0; i < length; i++) {
 			try {
-				const category_id = this.getNodeParameter('category_id', i, 0) as number;
+				const category_id = this.getNodeParameter('category_id', 0, 0) as number;
 				if (!category_id || category_id <= 0) {
 					throw new Error('The "category_id" parameter is required and must be > 0.');
 				}
-				const name = this.getNodeParameter('name', i, '') as string;
+				const name = this.getNodeParameter('name', 0, '') as string;
 				if (!name || name.trim() === '') {
 					throw new Error('The "name" parameter is required.');
 				}
-				const color = this.getNodeParameter('color', i, '#3b82f6') as string;
-				const icon = this.getNodeParameter('icon', i, 'folder') as string;
+				const color = this.getNodeParameter('color', 0, '#3b82f6') as string;
+				const icon = this.getNodeParameter('icon', 0, 'folder') as string;
 
 				const body = { name, color, icon };
 				const responseData = await makeQlynkRequest(this, 'PUT', `/categories/${category_id}`, body);
@@ -93,6 +93,6 @@ export class UpdateCategory implements INodeType {
 			}
 		}
 
-		return this.prepareOutputData(returnData);
+		return [returnData];
 	}
 }

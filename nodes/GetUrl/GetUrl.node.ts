@@ -46,7 +46,8 @@ export class GetUrl implements INodeType {
 
 		for (let i = 0; i < length; i++) {
 			try {
-				const short_code = this.getNodeParameter('short_code', i, '') as string;
+				// Always use index 0 for parameters (they come from the node config, not items)
+				const short_code = this.getNodeParameter('short_code', 0, '') as string;
 				if (!short_code || short_code.trim() === '') {
 					throw new Error('The "short_code" parameter is required.');
 				}
@@ -61,6 +62,6 @@ export class GetUrl implements INodeType {
 			}
 		}
 
-		return this.prepareOutputData(returnData);
+		return [returnData];
 	}
 }

@@ -229,6 +229,40 @@ The AI agent will:
 
 ## Version history
 
+### 1.2.4 (2025-10-29)
+
+**FINAL FIX: Parameter index resolution for AI tools!**
+
+**ROOT CAUSE IDENTIFIED:** By analyzing native n8n nodes (Telegram, Redis), discovered that parameters MUST be retrieved at index 0 (from node configuration) instead of index i (from items array) when used as AI tools.
+
+**What was wrong:**
+```typescript
+for (let i = 0; i < length; i++) {
+    const url = this.getNodeParameter('url', i);  // ❌ Tries to read from items[i]
+}
+```
+
+**Fixed with:**
+```typescript
+for (let i = 0; i < length; i++) {
+    const url = this.getNodeParameter('url', 0);  // ✅ Reads from node config
+}
+```
+
+**Impact:**
+- ✅ **Tools now execute correctly on FIRST attempt with proper data output**
+- ✅ Matches native node pattern exactly (Telegram, Redis, etc.)
+- ✅ All 11 nodes fixed with proper parameter indexing
+- ✅ Changed from `this.prepareOutputData()` back to `[returnData]` (native pattern)
+
+**Technical details:**
+When n8n invokes a node as an AI tool:
+- Input items array is empty (`items.length === 0`)
+- Parameters come from AI Agent's tool call, stored in node configuration
+- Must use index 0 to access node-level parameters
+- Must use `Math.max(items.length, 1)` to ensure execution
+- Return format must be `[returnData]` not `this.prepareOutputData(returnData)`
+
 ### 1.2.3 (2025-10-29)
 
 **REAL FIX: AI Tool execution with zero input items!**
