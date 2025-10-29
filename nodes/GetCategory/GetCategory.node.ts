@@ -40,7 +40,7 @@ export class GetCategory implements INodeType {
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
-		const returnData: any[] = [];
+		const returnData: INodeExecutionData[] = [];
 
 		for (let i = 0; i < items.length; i++) {
 			try {
@@ -49,16 +49,16 @@ export class GetCategory implements INodeType {
 					throw new Error('The "category_id" parameter is required and must be > 0.');
 				}
 				const responseData = await makeQlynkRequest(this, 'GET', `/categories/${category_id}`);
-				returnData.push(responseData);
+				returnData.push({ json: responseData });
 			} catch (error) {
 				if (this.continueOnFail()) {
-					returnData.push({ error: (error as Error).message });
+					returnData.push({ json: { error: (error as Error).message } });
 					continue;
 				}
 				throw error;
 			}
 		}
 
-		return [this.helpers.returnJsonArray(returnData)];
+		return this.prepareOutputData(returnData);
 	}
 }

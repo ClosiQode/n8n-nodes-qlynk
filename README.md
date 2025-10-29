@@ -229,17 +229,46 @@ The AI agent will:
 
 ## Version history
 
-### 1.2.1 (2025-10-29)
+### 1.2.2 (2025-10-29)
 
-**CRITICAL FIX: AI Agent tool response handling**
-- Changed all nodes to use `this.helpers.returnJsonArray()` instead of direct array return
-- Simplified data structure: removed `{json, pairedItem}` wrapper, now push raw response data
-- This matches the pattern used by native n8n nodes (Twilio, Telegram, HTTP Request, etc.)
-- **This should fix the issue where AI Agents see the tool in logs but don't receive responses**
+**CRITICAL FIX: First execution failure resolved!**
+
+This version fixes the issue where AI Agent tools appeared in logs but didn't execute on first run (required retry to work).
+
+**Root cause identified:**
+- Native n8n nodes use `this.prepareOutputData()` helper method
+- Community nodes need this for proper virtual tool wrapper initialization
+- Without it, lazy loading causes first execution to fail silently
 
 **What changed:**
-- Before: `returnData.push({json: responseData, pairedItem: {item: i}}); return [returnData];`
-- After: `returnData.push(responseData); return [this.helpers.returnJsonArray(returnData)];`
+- All nodes now use `this.prepareOutputData(returnData)` instead of `this.helpers.returnJsonArray()`
+- Changed return data type from `any[]` to `INodeExecutionData[]`
+- Data wrapped properly: `returnData.push({ json: responseData })`
+
+**Impact:**
+- ✅ **Tools execute correctly on FIRST attempt** (no more retry needed)
+- ✅ Matches native node pattern exactly
+- ✅ Proper initialization with virtual tool wrapper
+
+**Technical details:**
+```typescript
+// Before (v1.2.1 - required retry):
+const returnData: any[] = [];
+returnData.push(responseData);
+return [this.helpers.returnJsonArray(returnData)];
+
+// After (v1.2.2 - works first time):
+const returnData: INodeExecutionData[] = [];
+returnData.push({ json: responseData });
+return this.prepareOutputData(returnData);
+```
+
+### 1.2.1 (2025-10-29)
+
+**ATTEMPTED FIX: AI Agent tool response handling** (This didn't solve the root issue)
+- Changed all nodes to use `this.helpers.returnJsonArray()` instead of direct array return
+- Simplified data structure: removed `{json, pairedItem}` wrapper
+- This was based on comparing with native nodes but missed the key `prepareOutputData()` method
 
 ### 1.2.0 (2025-10-29)
 

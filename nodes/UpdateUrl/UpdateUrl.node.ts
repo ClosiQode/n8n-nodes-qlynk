@@ -82,7 +82,7 @@ export class UpdateUrl implements INodeType {
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
-		const returnData: any[] = [];
+		const returnData: INodeExecutionData[] = [];
 
 		for (let i = 0; i < items.length; i++) {
 			try {
@@ -104,16 +104,16 @@ export class UpdateUrl implements INodeType {
 				if (category_id > 0) body.category_id = category_id;
 
 				const responseData = await makeQlynkRequest(this, 'PUT', `/urls/${short_code}`, body);
-				returnData.push(responseData);
+				returnData.push({ json: responseData });
 			} catch (error) {
 				if (this.continueOnFail()) {
-					returnData.push({ error: (error as Error).message });
+					returnData.push({ json: { error: (error as Error).message } });
 					continue;
 				}
 				throw error;
 			}
 		}
 
-		return [this.helpers.returnJsonArray(returnData)];
+		return this.prepareOutputData(returnData);
 	}
 }

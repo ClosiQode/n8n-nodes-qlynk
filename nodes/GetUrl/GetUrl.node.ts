@@ -40,7 +40,7 @@ export class GetUrl implements INodeType {
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
-		const returnData: any[] = [];
+		const returnData: INodeExecutionData[] = [];
 
 		for (let i = 0; i < items.length; i++) {
 			try {
@@ -49,16 +49,16 @@ export class GetUrl implements INodeType {
 					throw new Error('The "short_code" parameter is required.');
 				}
 				const responseData = await makeQlynkRequest(this, 'GET', `/urls/${short_code}`);
-				returnData.push(responseData);
+				returnData.push({ json: responseData });
 			} catch (error) {
 				if (this.continueOnFail()) {
-					returnData.push({ error: (error as Error).message });
+					returnData.push({ json: { error: (error as Error).message } });
 					continue;
 				}
 				throw error;
 			}
 		}
 
-		return [this.helpers.returnJsonArray(returnData)];
+		return this.prepareOutputData(returnData);
 	}
 }
