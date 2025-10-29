@@ -13,7 +13,7 @@ export class Statistics implements INodeType {
 		icon: 'file:qlynk.png',
 		group: ['transform'],
 		version: 1,
-		description: 'Use this tool to retrieve detailed statistics for a short link. Provide the short code and optionally a time period (day, week, month, year, or all). Returns visit counts, geographic data, devices, browsers, and referrers.',
+		description: 'Gets statistics for a shortened URL. REQUIRED: short_code (string). OPTIONAL: period (\'day\'|\'week\'|\'month\'|\'year\'|\'all\', default \'week\'). RETURNS: Statistics object with total_visits, unique_visitors, devices breakdown, countries list, browsers breakdown.',
 		defaults: {
 			name: 'Statistics',
 		},
@@ -33,8 +33,7 @@ export class Statistics implements INodeType {
 				type: 'string',
 				default: '',
 				placeholder: 'abc123',
-				description: 'The short code of the link to get statistics for',
-				required: true,
+				description: 'REQUIRED: The short code of the link to get statistics for',
 			},
 			{
 				displayName: 'Period',
@@ -74,7 +73,10 @@ export class Statistics implements INodeType {
 
 		for (let i = 0; i < items.length; i++) {
 			try {
-				const short_code = this.getNodeParameter('short_code', i) as string;
+				const short_code = this.getNodeParameter('short_code', i, '') as string;
+				if (!short_code || short_code.trim() === '') {
+					throw new Error('The "short_code" parameter is required.');
+				}
 				const period = this.getNodeParameter('period', i, 'week') as string;
 
 				const responseData = await makeQlynkRequest(

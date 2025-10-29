@@ -229,6 +229,36 @@ The AI agent will:
 
 ## Version history
 
+### 1.2.0 (2025-10-29)
+
+**Major AI Agent compatibility improvements:**
+- Fixed AI Agent tool execution issues by removing `required: true` flags
+- Added manual parameter validation with clear error messages
+- Improved tool descriptions for better AI understanding
+- Enhanced parameter descriptions with explicit REQUIRED/OPTIONAL markers
+- Updated logo images with higher quality versions
+
+This version solves the common issue where AI Agents would identify the tool but fail to execute it due to optional parameter schema conflicts.
+
+### 1.1.9 (2025-10-29)
+
+- Updated node icons with improved logo images
+
+### 1.1.8 (2025-10-29)
+
+- Enabled AI Tool support with `usableAsTool: true`
+- Added comprehensive AI Agent documentation
+
+### 1.1.7 (2025-10-29)
+
+**CRITICAL FIX:**
+- Renamed all nodes to fix installation error (SQLITE_CONSTRAINT)
+- Changed from prefix-heavy naming (qlynkUrlCreate) to varied names (createUrl)
+
+### 1.1.6 (2025-10-29)
+
+- Changed TypeScript module system from Node16 to commonjs for compatibility
+
 ### 1.0.0 (2025-10-28)
 
 Initial release with support for:

@@ -33,8 +33,7 @@ export class GetCategory implements INodeType {
 				type: 'number',
 				default: 0,
 				placeholder: '1',
-				description: 'The numeric ID of the category to retrieve',
-				required: true,
+				description: 'REQUIRED: The numeric ID of the category to retrieve',
 			},
 		],
 	};
@@ -45,7 +44,10 @@ export class GetCategory implements INodeType {
 
 		for (let i = 0; i < items.length; i++) {
 			try {
-				const category_id = this.getNodeParameter('category_id', i) as number;
+				const category_id = this.getNodeParameter('category_id', i, 0) as number;
+				if (!category_id || category_id <= 0) {
+					throw new Error('The "category_id" parameter is required and must be > 0.');
+				}
 				const responseData = await makeQlynkRequest(this, 'GET', `/categories/${category_id}`);
 
 				returnData.push({

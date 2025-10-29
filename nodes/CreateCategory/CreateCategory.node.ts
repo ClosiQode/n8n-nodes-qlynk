@@ -33,8 +33,7 @@ export class CreateCategory implements INodeType {
 				type: "string",
 				default: "",
 				placeholder: "Social Media",
-				description: "The name of the category",
-				required: true,
+				description: "REQUIRED: The name of the category",
 			},
 			{
 				displayName: "Color",
@@ -61,7 +60,10 @@ export class CreateCategory implements INodeType {
 
 		for (let i = 0; i < items.length; i++) {
 			try {
-				const name = this.getNodeParameter("name", i) as string;
+				const name = this.getNodeParameter("name", i, "") as string;
+				if (!name || name.trim() === "") {
+					throw new Error('The "name" parameter is required.');
+				}
 				const color = this.getNodeParameter("color", i, "#3b82f6") as string;
 				const icon = this.getNodeParameter("icon", i, "folder") as string;
 

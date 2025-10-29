@@ -13,7 +13,7 @@ export class ListUrls implements INodeType {
 		icon: 'file:qlynk.png',
 		group: ['transform'],
 		version: 1,
-		description: 'Use this tool to list all short links in your Qlynk account. Returns a complete list with all link details including codes, URLs, titles, categories, and statistics.',
+		description: 'Lists all your shortened URLs. NO PARAMETERS REQUIRED. RETURNS: Array of URL objects, each with short_code, short_url, original_url, title, description.',
 		defaults: {
 			name: 'List URLs',
 		},

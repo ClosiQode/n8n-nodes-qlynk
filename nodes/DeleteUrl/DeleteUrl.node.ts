@@ -13,7 +13,7 @@ export class DeleteUrl implements INodeType {
 		icon: 'file:qlynk.png',
 		group: ['transform'],
 		version: 1,
-		description: 'Use this tool to permanently delete a short link by its code. This action cannot be undone. All statistics associated with this link will also be deleted.',
+		description: 'Deletes a shortened URL permanently. REQUIRED: short_code (string). RETURNS: Success confirmation message.',
 		defaults: {
 			name: 'Delete URL',
 		},
@@ -33,8 +33,7 @@ export class DeleteUrl implements INodeType {
 				type: 'string',
 				default: '',
 				placeholder: 'abc123',
-				description: 'The short code of the link to delete',
-				required: true,
+				description: 'REQUIRED: The short code of the link to delete',
 			},
 		],
 	};
@@ -45,7 +44,10 @@ export class DeleteUrl implements INodeType {
 
 		for (let i = 0; i < items.length; i++) {
 			try {
-				const short_code = this.getNodeParameter('short_code', i) as string;
+				const short_code = this.getNodeParameter('short_code', i, '') as string;
+				if (!short_code || short_code.trim() === '') {
+					throw new Error('The "short_code" parameter is required.');
+				}
 				const responseData = await makeQlynkRequest(this, 'DELETE', `/urls/${short_code}`);
 
 				returnData.push({

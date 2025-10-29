@@ -13,7 +13,7 @@ export class UpdateUrl implements INodeType {
 		icon: 'file:qlynk.png',
 		group: ['transform'],
 		version: 1,
-		description: 'Use this tool to update an existing short link. You can modify the original URL, title, description, indexing settings, or change the category. Provide the short code to identify which link to update.',
+		description: 'Updates an existing shortened URL. REQUIRED: short_code (string). OPTIONAL: url (string), title (string), description (string), is_indexed (boolean), category_id (number). RETURNS: Updated URL object.',
 		defaults: {
 			name: 'Update URL',
 		},
@@ -33,8 +33,7 @@ export class UpdateUrl implements INodeType {
 				type: 'string',
 				default: '',
 				placeholder: 'abc123',
-				description: 'The short code of the link to update',
-				required: true,
+				description: 'REQUIRED: The short code of the link to update',
 			},
 			{
 				displayName: 'Original URL',
@@ -87,7 +86,10 @@ export class UpdateUrl implements INodeType {
 
 		for (let i = 0; i < items.length; i++) {
 			try {
-				const short_code = this.getNodeParameter('short_code', i) as string;
+				const short_code = this.getNodeParameter('short_code', i, '') as string;
+				if (!short_code || short_code.trim() === '') {
+					throw new Error('The "short_code" parameter is required.');
+				}
 				const url = this.getNodeParameter('url', i, '') as string;
 				const title = this.getNodeParameter('title', i, '') as string;
 				const description = this.getNodeParameter('description', i, '') as string;
