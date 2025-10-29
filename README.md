@@ -170,11 +170,32 @@ The Qlynk node can be used as a tool by AI agents in n8n!
 
 #### Prerequisites for AI Tool Usage
 
-If you're using a community node (not built-in), you need to enable the following environment variable:
+**All Qlynk nodes are AI-ready!** To use community nodes as AI tools, you need to enable the following environment variable in your n8n instance:
 
 ```bash
 N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=true
 ```
+
+**Docker Configuration:**
+
+If you're running n8n in Docker, add this to your `docker-compose.yml`:
+
+```yaml
+environment:
+  - N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=true
+```
+
+Or use it when running Docker:
+
+```bash
+docker run -it --rm \
+  -e N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=true \
+  -p 5678:5678 \
+  -v ~/.n8n:/home/node/.n8n \
+  n8nio/n8n
+```
+
+**After setting the environment variable, restart your n8n instance.**
 
 #### Setup
 

@@ -19,7 +19,7 @@ export class ListUrls implements INodeType {
 		},
 		inputs: ['main'],
 		outputs: ['main'],
-		// usableAsTool: true,
+		usableAsTool: true,
 		credentials: [
 			{
 				name: 'qlynkApi',
