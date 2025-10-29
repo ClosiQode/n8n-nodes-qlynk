@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.4] - 2025-10-29
+
+### 🔧 Fix: Complete Removal of Legacy Node Files
+
+**Suppression complète des fichiers du node monolithique**
+
+### Fixed
+
+- **SUPPRESSION physique du dossier nodes/Qlynk/** - Le node legacy était retiré du package.json mais les fichiers restaient dans dist/
+- **Clean build** - Rebuild complet sans les fichiers Qlynk.node.js
+- **Résolution définitive** - Plus aucune trace du node monolithique dans le package npm
+
+### Technical Details
+
+**Problème v1.1.3:**
+- Le node était retiré de `package.json` mais les fichiers compilés restaient dans `dist/nodes/Qlynk/`
+- npm publish incluait encore ces fichiers → conflit lors de l'installation
+
+**Solution v1.1.4:**
+- Suppression physique du dossier `nodes/Qlynk/` et `dist/nodes/Qlynk/`
+- Rebuild propre avec uniquement les 11 nodes spécialisés
+- Package npm ne contient plus aucune trace du node legacy
+
 ## [1.1.3] - 2025-10-29
 
 ### 🔧 Fix: Remove Legacy Monolithic Node
